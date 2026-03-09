@@ -1,5 +1,198 @@
 <!DOCTYPE html>
 <html>
-<head><title>NeRVE Eigenspectrum</title></head>
-<body><h1>Coming soon</h1></body>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="NerVE: An eigenspectral probe of FFN nonlinearities that quantifies how they restructure latent variance, yielding spectral signatures that track generalization and reveal consistent effects of architecture and optimizer design.">
+  <meta name="keywords" content="NerVE, Eigenspectrum, feed-forward networks, training dynamics, latent space geometry, optimizer geometry, LLM, ICLR 2026">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NerVE: Nonlinear Eigenspectrum Dynamics in LLM Feed-Forward Networks</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">NerVE: Nonlinear Eigenspectrum Dynamics in LLM Feed-Forward Networks</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://www.nankj.com">Nandan Kumar Jha</a>,</span>
+            <span class="author-block">
+              <a href="https://engineering.nyu.edu/faculty/brandon-reagen">Brandon Reagen</a>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">New York University</span>
+          </div>
+
+          <!-- Venue Badge -->
+          <div class="is-size-5 publication-authors" style="margin-top: 0.5rem;">
+            <span class="author-block" style="font-weight: bold;">✨ ICLR 2026</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://openreview.net/forum?id=W5BPGXR9jf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- arXiv Link (Coming Soon) -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark" 
+                   style="pointer-events: none; opacity: 0.5;">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv (coming soon)</span>
+                </a>
+              </span>
+              <!-- Code Link (Coming Soon) -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark"
+                   style="pointer-events: none; opacity: 0.5;">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (coming soon)</span>
+                </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Teaser Image Section -->
+<!-- TODO: Replace with your teaser figure -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <!-- Replace the src below with your teaser figure path -->
+      <!-- <img src="./static/images/teaser.png" alt="NerVE teaser figure" style="width: 100%;"> -->
+      <h2 class="subtitle has-text-centered" style="color: #999; padding: 3rem 0;">
+        [ Teaser figure will go here — upload from your paper ]
+      </h2>
+      <h2 class="subtitle has-text-centered">
+        We introduce <span style="font-weight: bold;">NerVE</span>, an eigenspectral probe of FFN nonlinearities that quantifies how they restructure latent variance, yielding spectral signatures that track generalization and reveal consistent effects of architecture and optimizer design.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            We introduce NerVE, a unified eigenspectral framework for understanding how feed-forward networks (FFNs) in large language models (LLMs) organize and regulate information flow in high-dimensional latent space. Despite FFNs dominating the parameter budget, their high-dimensional dynamics remain poorly understood. NerVE addresses this gap through lightweight, memory-efficient tracking of eigenspectrum dynamics via four complementary metrics: Spectral Entropy (dispersion), Participation Ratio (effective dimensionality), Eigenvalue Early Enrichment (top-heaviness), and Jensen-Shannon divergence (distributional shifts). Our <em>key insight</em> is that FFN nonlinearities reinject variance across eigenmodes, fundamentally governing latent dimension utilization, and that optimizer geometry strongly modulates the extent of this variance reinjection.
+          </p>
+          <p>
+            We validate NerVE across model scales, and diverse architectural and optimizer configurations, each uniquely shaping FFN dynamics: normalization schemes controlling variance flow; FFN weight geometries constraining latent space; positional encoding and activation functions regulating information flow; and optimizer choices redistributing effective capacity across depth. Across these settings, NerVE consistently recovers stable spectral signatures that correlate with model's generalization ability and respond predictably to design choices, generalizing beyond transformer to MLP-Mixer architectures, providing actionable insights for architectural and optimizer choices beyond trial-and-error.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+
+<!-- Key Results Section -->
+<!-- TODO: Add key figures from your paper here -->
+<!--
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Key Results</h2>
+        <div class="content has-text-justified">
+          <p>Add your key results figures and descriptions here.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+-->
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{jha2026nerve,
+  title={NerVE: Nonlinear Eigenspectrum Dynamics in LLM Feed-Forward Networks},
+  author={Nandan Kumar Jha and Brandon Reagen},
+  booktitle={The Fourteenth International Conference on Learning Representations (ICLR)},
+  year={2026}
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://openreview.net/forum?id=W5BPGXR9jf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/nerve-eigenspectrum" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This website template is borrowed from the <a
+              href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
 </html>
