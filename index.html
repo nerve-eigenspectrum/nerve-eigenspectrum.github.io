@@ -121,7 +121,7 @@
       <img src="./static/images/nerve-framework.png" alt="NerVE Framework Overview" style="width: 100%;">
       <!-- Figure Caption -->
       <p class="has-text-justified" style="color: #888; font-size: 0.95rem; margin-top: 1rem; margin-bottom: 1.5rem; line-height: 1.6;">
-        <strong style="color: #666;">Figure:</strong> NerVE tracks eigenspectrum dynamics at pre-activation (after W<sub>up</sub>, before &sigma;) and post-activation (after &sigma;, before W<sub>down</sub>) points in each FFN layer, computing four complementary metrics&mdash;Spectral Entropy (SE) for dispersion, Participation Ratio (PR) for effective dimensionality, Eigenvalue Early Enrichment (EEE) for top-heaviness, and Jensen&ndash;Shannon Divergence (JS) to quantify the distributional shift&mdash;characterizing how nonlinearities restructure the latent geometry.
+        <strong style="color: #666;">Figure:</strong> NerVE tracks eigenspectrum dynamics at pre-activation (after W<sub>up</sub>, before &sigma;) and post-activation (after &sigma;, before W<sub>down</sub>) points in each FFN layer, computing four complementary metrics: Spectral Entropy (SE) for dispersion, Participation Ratio (PR) for effective dimensionality, Eigenvalue Early Enrichment (EEE) for top-heaviness, and Jensen&ndash;Shannon Divergence (JS) to quantify the distributional shift, characterizing how nonlinearities restructure the latent geometry.
       </p>
     </div>
   </div>
@@ -149,22 +149,40 @@
 </section>
 
 
-<!-- Key Results Section -->
-<!-- TODO: Add key figures from your paper here -->
-<!--
+<!-- Section 1: What do FFN nonlinearities actually do? -->
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Key Results</h2>
-        <div class="content has-text-justified">
-          <p>Add your key results figures and descriptions here.</p>
+        <h2 class="title is-3">What do FFN nonlinearities actually do?</h2>
+
+        <!-- Figure -->
+        <div class="has-text-centered">
+          <img src="./static/images/gelu-relu-combined-panel.png" alt="GELU and ReLU eigenspectrum dynamics" style="width: 100%;">
         </div>
+
+        <!-- Figure Caption -->
+        <p class="has-text-justified" style="color: #888; font-size: 0.95rem; margin-top: 1rem; margin-bottom: 1.5rem; line-height: 1.6;">
+          <strong style="color: #666;">Figure:</strong> Eigen-metrics (SE, PR, EEE, and JS) illustrate how FFN nonlinearities regulate information flow and reshape the eigenspectrum during training for GELU (top) and ReLU (bottom). Pre- and post-activation dynamics are shown for SE, PR, and EEE, highlighting how nonlinearities reinject variance and alter spectral structure. JS heatmaps (rightmost) capture the layer-wise distributional shift induced by the nonlinearity. In-panel titles report Pearson correlations (<em>r</em>) between each metric and evaluation loss, shown as orange curves.
+        </p>
+
+        <!-- Content paragraphs — TODO: add your text here -->
+        <div class="content has-text-justified">
+          <p>
+            <strong>Attention collapses rank, but what fights back?</strong> Since 2021, it has been known that self-attention loses rank doubly exponentially with depth (Dong et al., ICML 2021). The same work observed a "tug-of-war" between attention and FFN nonlinearities: attention collapses rank, nonlinearity somehow fights back. But <em>somehow</em> is neither satisfying nor quantifiable. NerVE provides the quantitative answer.
+          </p>
+          <p>
+            <strong>FFN nonlinearities reinject variance into inactive directions, inflating the effective rank.</strong> Before the nonlinearity fires, the FFN eigenspectrum is dominated by a handful of principal directions; most of the latent space is effectively unused. After the nonlinearity, the spectrum flattens: variance redistributes across many more dimensions, and previously silent directions begin carrying information. This is not a simple rescaling; the nonlinearity fundamentally reorganizes the eigenspectrum.
+          </p>
+          <p>
+            <strong>Four metrics decompose this rank inflation into its geometric constituents.</strong> Spectral Entropy (SE) and Participation Ratio (PR) both rise after activation, indicating broader variance distribution and higher effective dimensionality. Eigenvalue Early Enrichment (EEE) drops, confirming a less top-heavy spectrum. Jensen-Shannon (JS) heatmaps reveal <em>where</em> across depth this redistribution is strongest: a structured, depth-localized transition band rather than a uniform effect. GELU and ReLU follow the same trajectory but differ in pace: GELU explores a broader subspace, correlating with lower perplexity. All four metrics correlate strongly with evaluation loss (|<em>r</em>| &gt; 0.92).
+          </p>
+        </div>
+
       </div>
     </div>
   </div>
 </section>
--->
 
 
 <section class="section" id="BibTeX">
