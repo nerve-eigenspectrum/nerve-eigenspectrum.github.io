@@ -25,7 +25,7 @@
       display: inline-block;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #a855f7 100%);
       color: white;
-      padding: 0.8rem 3.2rem;
+      padding: 0.8rem 2.8rem;
       border-radius: 50px;
       font-size: 1.8rem;
       font-weight: 700;
@@ -121,12 +121,8 @@
       <img src="./static/images/nerve-framework.png" alt="NerVE Framework Overview" style="width: 100%;">
       <!-- Figure Caption -->
       <p class="has-text-centered" style="color: #888; font-size: 0.95rem; margin-top: 1rem; margin-bottom: 1.5rem; line-height: 1.6;">
-        <strong style="color: #666;"></strong> NerVE tracks eigenspectrum dynamics at pre-activation (after W<sub>up</sub>, before &sigma;) and post-activation (after &sigma;, before W<sub>down</sub>) points in each FFN layer, computing four complementary metrics&mdash;Spectral Entropy (SE) for dispersion, Participation Ratio (PR) for effective dimensionality, Eigenvalue Early Enrichment (EEE) for top-heaviness, and Jensen&ndash;Shannon Divergence (JS) to quantify the distributional shift&mdash;characterizing how nonlinearities restructure the latent variance.
+        <strong style="color: #666;">Figure:</strong> NerVE tracks eigenspectrum dynamics at pre-activation (after W<sub>up</sub>, before &sigma;) and post-activation (after &sigma;, before W<sub>down</sub>) points in each FFN layer, computing four complementary metrics&mdash;Spectral Entropy (SE) for dispersion, Participation Ratio (PR) for effective dimensionality, Eigenvalue Early Enrichment (EEE) for top-heaviness, and Jensen&ndash;Shannon Divergence (JS) to quantify the distributional shift&mdash;characterizing how nonlinearities restructure the latent geometry.
       </p>
-      <!-- TL;DR -->
-      <h2 class="subtitle has-text-centered">
-        We introduce <span style="font-weight: bold;">NerVE</span>, an eigenspectral probe of FFN nonlinearities that quantifies how they restructure latent variance, yielding spectral signatures that track generalization and reveal consistent effects of architecture and optimizer design.
-      </h2>
     </div>
   </div>
 </section>
