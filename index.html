@@ -73,25 +73,24 @@
 
           <div class="column has-text-centered">
             <div class="publication-links">
-              <!-- PDF Link. -->
+              <!-- arXiv Link -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2603.06922"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- OpenReview Link -->
               <span class="link-block">
                 <a href="https://openreview.net/forum?id=W5BPGXR9jf"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
                   </span>
-                  <span>Paper</span>
-                </a>
-              </span>
-              <!-- arXiv Link (Coming Soon) -->
-              <span class="link-block">
-                <a href="#"
-                   class="external-link button is-normal is-rounded is-dark" 
-                   style="pointer-events: none; opacity: 0.5;">
-                  <span class="icon">
-                      <i class="ai ai-arxiv"></i>
-                  </span>
-                  <span>arXiv (coming soon)</span>
+                  <span>OpenReview</span>
                 </a>
               </span>
               <!-- Code Link (Coming Soon) -->
@@ -169,13 +168,19 @@
         <!-- Content paragraphs — TODO: add your text here -->
         <div class="content has-text-justified">
           <p>
-            <strong>Attention collapses rank, but what fights back?</strong> <a href="https://proceedings.mlr.press/v139/dong21a.html" target="_blank">Dong et al. (ICML 2021)</a> proved that pure self-attention drives representations toward a rank-1 matrix doubly exponentially with depth, a phenomenon they termed <em>token uniformity</em>. They identified a counteracting force: FFNs slow this collapse. But their analysis stopped there; the FFN side of this tug-of-war was characterized only as a passive brake on convergence speed, not as a mechanism in its own right. NerVE reveals what is actually happening on the other side: FFN nonlinearities actively reinject variance into under-utilized eigenmodes, inflating effective rank through structured spectral reorganization, not merely slowing collapse, but reversing it.
+            <a href="https://proceedings.mlr.press/v139/dong21a.html" target="_blank">Dong et al. (ICML 2021)</a> proved that self-attention loses rank doubly exponentially with depth. The same work observed a "tug-of-war" between attention and FFN nonlinearities: attention collapses rank, nonlinearity somehow fights back. But <em>somehow</em> is neither satisfying nor quantifiable.
           </p>
           <p>
-            <strong>FFN nonlinearities reinject variance into inactive directions, inflating the effective rank.</strong> Before the nonlinearity fires, the FFN eigenspectrum is dominated by a handful of principal directions; most of the latent space is effectively unused. After the nonlinearity, the spectrum flattens: variance redistributes across many more dimensions, and previously silent directions begin carrying information. This is not a simple rescaling; the nonlinearity fundamentally reorganizes the eigenspectrum.
+            NerVE provides the quantitative answer. We show that FFN nonlinearities actively <em>reinject variance</em> into under-utilized directions of the latent space, reawakening dimensions that would otherwise remain inactive, a process we term <strong>nonlinearity-induced rank inflation</strong>. This is not a simple rescaling: the nonlinearity fundamentally reorganizes the eigenspectrum, flattening its top-heavy structure and spreading variance across a broader set of directions.
           </p>
           <p>
-            <strong>Four metrics decompose this rank inflation into its geometric constituents.</strong> Spectral Entropy (SE) and Participation Ratio (PR) both rise after activation, indicating broader variance distribution and higher effective dimensionality. Eigenvalue Early Enrichment (EEE) drops, confirming a less top-heavy spectrum. Jensen-Shannon (JS) heatmaps reveal <em>where</em> across depth this redistribution is strongest: a structured, depth-localized transition band rather than a uniform effect. GELU and ReLU follow the same trajectory but differ in pace: GELU explores a broader subspace, correlating with lower perplexity. All four metrics correlate strongly with evaluation loss (|<em>r</em>| &gt; 0.92).
+            Before the nonlinearity fires, the FFN eigenspectrum is dominated by a handful of principal directions; most of the latent space is effectively unused. After the nonlinearity, the spectrum flattens: variance redistributes across many more dimensions, and previously silent directions begin carrying information.
+          </p>
+          <p>
+            NerVE tracks this rank inflation through four complementary metrics. Spectral Entropy (SE) and Participation Ratio (PR) both rise after activation, indicating broader variance distribution and higher effective dimensionality. Eigenvalue Early Enrichment (EEE) drops, confirming that the spectrum becomes less top-heavy. Jensen-Shannon divergence (JS) heatmaps reveal <em>where</em> this redistribution is strongest across depth and training: a structured, depth-localized transition band rather than a uniform effect.
+          </p>
+          <p>
+            GELU and ReLU follow the same qualitative trajectory (variance reinjection, spectral flattening, distributional reordering) but differ in pace and extent. ReLU stabilizes earlier; GELU progresses more gradually yet ultimately explores a broader subspace, correlating with its lower perplexity. All four metrics correlate strongly with evaluation loss (|<em>r</em>| &gt; 0.92), confirming that spectral dynamics track generalization throughout training.
           </p>
         </div>
 
@@ -202,7 +207,7 @@
   <div class="container">
     <div class="content has-text-centered">
       <a class="icon-link"
-         href="https://openreview.net/forum?id=W5BPGXR9jf">
+         href="https://arxiv.org/abs/2603.06922">
         <i class="fas fa-file-pdf"></i>
       </a>
       <a class="icon-link" href="https://github.com/nerve-eigenspectrum" class="external-link" disabled>
