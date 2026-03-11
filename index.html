@@ -315,6 +315,34 @@
   </div>
 </section>
 
+<!-- Section 4: MLP-Mixer -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Beyond attention: NerVE on MLP-Mixer</h2>
+
+        <!-- Figure -->
+        <div class="has-text-centered">
+          <img src="./static/images/mlp_mixer_combined_plots.png" alt="Eigenspectrum dynamics in MLP-Mixer" style="width: 100%;">
+        </div>
+
+        <!-- Figure Caption -->
+        <p class="has-text-justified" style="color: #888; font-size: 0.95rem; margin-top: 1rem; margin-bottom: 1.5rem; line-height: 1.6;">
+          <strong style="color: #666;">Figure:</strong> Eigenspectrum dynamics in MLP-Mixer under activation ablations. Rows correspond to the four activation configurations for token-mixing (FFN1) and channel-mixing (FFN2) layers, and columns (from left to right) show SE, PR, EEE, and JS for the channel-mixing FFNs (FFN2). Each panel traces pre- and post-activation metrics over training, showing that ReLU in the channel-mixing MLP (3rd and 4th rows) most strongly increases SE/PR and reduces EEE, reinjects variance into low-energy directions and flattens the spectrum.
+        </p>
+
+        <div class="content has-text-justified">
+          <p>
+            <strong>The variance reinjection pattern is not transformer-specific; it emerges wherever deep FFNs meet nonlinearity.</strong> MLP-Mixer removes self-attention entirely, isolating the contribution of FFN nonlinear transformations from attention-specific dynamics like rank collapse. We apply NerVE to MLP-Mixer (B/16) on CIFAR-100, a pure-MLP architecture with no self-attention. The same core pattern holds: post-activation SE and PR rise above pre-activation throughout training, EEE drops, and the nonlinearity actively flattens the eigenspectrum across all four activation configurations tested. NerVE further reveals that activation choice in the channel-mixing MLP (the component analogous to transformer FFNs) has a far stronger spectral impact than activation choice in the token-mixing MLP, identifying <em>which</em> nonlinearity matters most. The optimizer story also extends: SGD achieves higher post-activation SE and PR than Adam throughout training, correlating with better accuracy (68.07% vs 66.96%), confirming that optimizer-dependent spectral dynamics are not a transformer-specific phenomenon.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
