@@ -173,11 +173,88 @@
           <p>
             <strong>Nonlinearity-induced rank inflation.</strong> We show that FFN nonlinearities actively <em>reinject variance</em> into under-utilized directions of the latent space, reawakening dimensions that would otherwise remain inactive, a process we term <strong>nonlinearity-induced rank inflation</strong>. This is not a passive rescaling, nonlinearity fundamentally reorganizes the eigenspectrum, flattening its top-heavy structure by spreading variance across a broader set of directions.
           </p>
+
+          <!-- Metrics Table -->
+          <div class="has-text-centered" style="margin: 1.5rem 0;">
+            <img src="./static/images/nerve-metrics-table.png" alt="NerVE metrics summary table" style="max-width: 85%;">
+            <p class="has-text-justified" style="color: #888; font-size: 0.95rem; margin-top: 0.75rem; line-height: 1.6;">
+              <strong style="color: #666;">Table:</strong> Summary of NerVE's four complementary eigen-metrics, their inputs, ranges, spectral sensitivities, and what each captures about the latent space geometry. SE, PR, and EEE characterize a single spectrum; while JS quantifies the information-theoretic distance between the pre- and post-activation, and characterizes nonlinearity-induced geometric transformation. Here, &lambda; denotes the raw eigenvalues, &lambda;&#770; the normalized eigenvalues, and <em>D</em> the FFN hidden dimension.
+            </p>
+          </div>
+
           <p>
             NerVE tracks this mechanism through four complementary metrics. Spectral Entropy (SE) and Participation Ratio (PR) both rise after activation, indicating broader variance distribution and higher effective dimensionality. Eigenvalue Early Enrichment (EEE) drops, confirming that the spectrum becomes less top-heavy. Jensen-Shannon divergence (JS) heatmaps reveal <em>where</em> this redistribution is strongest across depth and training; a structured, depth-localized transition band rather than a uniform effect.
           </p>
           <p>
             <strong>GELU vs. ReLU: who explores more of the latent space?</strong> GELU and ReLU follow the same qualitative trajectory (variance reinjection, spectral flattening, distributional reordering) but differ in pace and extent. ReLU stabilizes earlier; GELU progresses more gradually yet ultimately explores a broader subspace, correlating with its lower perplexity. All four metrics correlate strongly with evaluation loss (|<em>r</em>| &gt; 0.92), confirming that spectral dynamics track generalization throughout training.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 2: Normalization -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">How FFN nonlinearities compensate for the absence of normalization layers</h2>
+
+        <!-- Figure -->
+        <div class="has-text-centered">
+          <img src="./static/images/normfree_eigenmetrics_plots.png" alt="Normalization-free eigenmetrics plots" style="width: 100%;">
+        </div>
+
+        <!-- Figure Caption — TODO: will be provided -->
+        <p class="has-text-justified" style="color: #888; font-size: 0.95rem; margin-top: 1rem; margin-bottom: 1.5rem; line-height: 1.6;">
+          <strong style="color: #666;">Figure:</strong> Eigenspectrum dynamics for norm-free GPT-2 (125M) models with GELU (top), ReLU (middle), and learnable-slope Leaky ReLU (bottom). Each row shows layer-averaged SE (pre vs. post), PR gain (post-to-pre ratio), post-activation EEE, and JS divergence across layers and training steps. Norm-free GELU exhibits spectral inertia in layers 0 to 5 (EEE &rarr; 1, JS &rarr; 0), while <em>ReLU and Leaky ReLU aggressively reinject variance</em> (PR gain &gt; <strong>200x</strong>), flattening the spectrum (EEE &lt; 0.3).
+        </p>
+
+        <div class="content has-text-justified">
+          <p>
+            <strong>Removing LayerNorm shifts the entire burden of statistical regularization onto FFN activations, and not all activations survive.</strong> LayerNorm re-centers and rescales representations at every layer, quietly preventing variance from concentrating into a few dominant directions. Without it, the FFN nonlinearity is the last line of defense against spectral collapse. NerVE reveals that GELU and ReLU respond to this pressure in fundamentally different ways.
+          </p>
+          <p>
+            <strong>GELU exhibits spectral inertia: early FFNs fail to reinject variance, and information flows through a narrow subspace.</strong> In normalization-free models with GELU, the post-activation EEE remains near 1 and JS near 0 in early layers; the nonlinearity is effectively acting as a near-identity, leaving the top-heavy eigenspectrum untouched. This spectral bottleneck is the geometric signature of entropic overload (<a href="https://arxiv.org/abs/2410.09637" target="_blank">Jha &amp; Reagen, NeurIPS ATTRIB 2024</a>), where early attention heads are stuck in high-entropy states, starving deeper layers of representational diversity.
+          </p>
+          <p>
+            <strong>ReLU breaks the bottleneck through aggressive overcompensation, with PR gains exceeding 200x.</strong> In sharp contrast, ReLU and learnable-slope Leaky ReLU variants exhibit massive variance reinjection in the first two FFN layers, flattening the spectrum (EEE &lt; 0.3) and producing non-overlapping pre/post spectral entropy curves. This compensatory behavior partially assumes the regularization role of LayerNorm, closing roughly 50% of the perplexity gap to the normalized baseline.
+          </p>
+        </div>
+
+        <!-- Perplexity Table -->
+        <div style="margin: 1.5rem 0;">
+          <table style="margin: 0 auto; border-collapse: collapse; font-size: 1rem; min-width: 500px;">
+            <thead>
+              <tr>
+                <th style="border-bottom: 2px solid #333; padding: 0.6rem 1rem;"></th>
+                <th colspan="2" style="border-bottom: 2px solid #333; padding: 0.6rem 1rem; text-align: center; font-weight: 600;">Baseline Models</th>
+                <th colspan="3" style="border-bottom: 2px solid #333; padding: 0.6rem 1rem; text-align: center; font-weight: 600;">Norm-free Models</th>
+              </tr>
+              <tr>
+                <th style="border-bottom: 1px solid #999; padding: 0.5rem 1rem;"></th>
+                <th style="border-bottom: 1px solid #999; padding: 0.5rem 1rem; text-align: center; font-weight: 500;">GELU</th>
+                <th style="border-bottom: 1px solid #999; padding: 0.5rem 1rem; text-align: center; font-weight: 500;">ReLU</th>
+                <th style="border-bottom: 1px solid #999; padding: 0.5rem 1rem; text-align: center; font-weight: 500;">GELU</th>
+                <th style="border-bottom: 1px solid #999; padding: 0.5rem 1rem; text-align: center; font-weight: 500;">ReLU</th>
+                <th style="border-bottom: 1px solid #999; padding: 0.5rem 1rem; text-align: center; font-weight: 500;">Leaky ReLU</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding: 0.6rem 1rem; font-weight: 600; border-bottom: 2px solid #333;">PPL</td>
+                <td style="padding: 0.6rem 1rem; text-align: center; border-bottom: 2px solid #333;">2.714</td>
+                <td style="padding: 0.6rem 1rem; text-align: center; border-bottom: 2px solid #333;">2.774</td>
+                <td style="padding: 0.6rem 1rem; text-align: center; border-bottom: 2px solid #333;">3.223</td>
+                <td style="padding: 0.6rem 1rem; text-align: center; border-bottom: 2px solid #333;">2.988</td>
+                <td style="padding: 0.6rem 1rem; text-align: center; border-bottom: 2px solid #333;">3.081</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="has-text-justified" style="color: #888; font-size: 0.95rem; margin-top: 0.75rem; line-height: 1.6;">
+            <strong style="color: #666;">Table:</strong> Evaluation perplexity (PPL) comparison across GPT-2 baseline models (GELU and ReLU), and the norm-free variants (GELU, ReLU, learnable-slope Leaky ReLU). All models trained from scratch on 2.1B tokens from CodeParrot dataset.
           </p>
         </div>
 
