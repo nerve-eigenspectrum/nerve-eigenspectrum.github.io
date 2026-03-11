@@ -200,7 +200,7 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">How FFN nonlinearities compensate for the absence of normalization layers</h2>
+        <h2 class="title is-3">How FFN nonlinearities compensate for LayerNorms</h2>
 
         <!-- Figure -->
         <div class="has-text-centered">
@@ -220,7 +220,7 @@
             <strong>GELU exhibits spectral inertia: early FFNs fail to reinject variance, and information flows through a narrow subspace.</strong> In normalization-free models with GELU, the post-activation EEE remains near 1 and JS near 0 in early layers; the nonlinearity is effectively acting as a near-identity, leaving the top-heavy eigenspectrum untouched. This spectral bottleneck is the geometric signature of entropic overload (<a href="https://arxiv.org/abs/2410.09637" target="_blank">Jha &amp; Reagen, NeurIPS ATTRIB 2024</a>), where early attention heads are stuck in high-entropy states, starving deeper layers of representational diversity.
           </p>
           <p>
-            <strong>ReLU breaks the bottleneck through aggressive overcompensation, with PR gains exceeding 200x.</strong> In sharp contrast, ReLU and learnable-slope Leaky ReLU variants exhibit massive variance reinjection in the first two FFN layers, flattening the spectrum (EEE &lt; 0.3) and producing non-overlapping pre/post spectral entropy curves. This compensatory behavior partially assumes the regularization role of LayerNorm, closing roughly 50% of the perplexity gap to the normalized baseline.
+            <strong>ReLU breaks spectral inertia through aggressive overcompensation (PR gains &gt;200).</strong> In sharp contrast, ReLU and learnable-slope Leaky ReLU variants exhibit massive variance reinjection in the first two FFN layers, flattening the spectrum (EEE &lt; 0.3) and producing non-overlapping pre/post spectral entropy curves. This compensatory behavior partially assumes the regularization role of LayerNorm, closing roughly 50% of the perplexity gap to the normalized baseline.
           </p>
         </div>
 
