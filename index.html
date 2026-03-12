@@ -278,7 +278,7 @@
           <img src="./static/images/combined_eigen_muon_dion_350m_512.png" alt="Optimizer-dependent FFN eigenspectrum dynamics" style="width: 100%;">
         </div>
         <p class="has-text-justified" style="color: #888; font-size: 0.95rem; margin-top: 1rem; margin-bottom: 1.5rem; line-height: 1.6;">
-          <strong style="color: #666;">Figure:</strong> Optimizer-dependent FFN eigenspectrum dynamics in GPT-2 (350M). Rows show AdamW (top), Muon (middle), and Dion (bottom). AdamW exhibits large early PR gains and high JS with relatively high post-activation EEE, indicating optimizer-induced pre-activation collapse followed by aggressive but incomplete nonlinear repair. Muon shows the smallest PR gains, lowest JS, and lowest post-activation EEE, with flatter post-spectra. Dion falls between these two regimes, improving over AdamW but not matching Muon's spectral behavior. The perplexity ordering (Muon &lt; Dion &lt; AdamW) aligns with post-activation spectral flatness.
+          <strong style="color: #666;">Figure:</strong> Optimizer-dependent FFN eigenspectrum dynamics in GPT-2 (350M) trained on FineWeb dataset. Rows show AdamW (top), Muon (middle), and Dion (bottom). AdamW exhibits large early PR gains and high JS with relatively high post-activation EEE, indicating optimizer-induced pre-activation collapse followed by aggressive but incomplete nonlinear repair. Muon shows the smallest PR gains, lowest JS, and lowest post-activation EEE, with flatter post-spectra. Dion falls between these two regimes, improving over AdamW but not matching Muon's spectral behavior. The perplexity ordering (Muon &lt; Dion &lt; AdamW) aligns with post-activation spectral flatness.
         </p>
         <div class="content has-text-justified">
           <p>
@@ -291,7 +291,7 @@
           <img src="./static/images/pr_pre_line_plots_350m.png" alt="Layer-wise pre-activation PR over training" style="width: 100%;">
         </div>
         <p class="has-text-justified" style="color: #888; font-size: 0.95rem; margin-top: 1rem; margin-bottom: 1.5rem; line-height: 1.6;">
-          <strong style="color: #666;">Figure:</strong> Layer-wise pre-activation PR over training for AdamW, Muon, and Dion. Muon maintains the highest PR<sub>pre</sub> across almost all layers throughout training, Dion is intermediate, and AdamW shows early-layer collapse.
+          <strong style="color: #666;">Figure:</strong> Layer-wise pre-activation PR over training for AdamW, Muon, and Dion on GPT-2 350M (24 layers) trained on FineWeb dataset. Muon maintains the highest PR<sub>pre</sub> across almost all layers throughout training, Dion is intermediate, and AdamW shows early-layer collapse.
         </p>
         <div class="content has-text-justified">
           <p>
@@ -304,7 +304,7 @@
           <img src="./static/images/layer_trend_adamw_muon_dion_350m.png" alt="Final post-activation PR per layer" style="width: 100%;">
         </div>
         <p class="has-text-justified" style="color: #888; font-size: 0.95rem; margin-top: 1rem; margin-bottom: 1.5rem; line-height: 1.6;">
-          <strong style="color: #666;">Figure:</strong> Final post-activation PR per layer for AdamW, Muon, and Dion. Muon concentrates the largest effective dimensionality in middle FFN layers, the layers most critical for generalization.
+          <strong style="color: #666;">Figure:</strong> Final post-activation PR per layer for AdamW, Muon, and Dion on GPT-2 350M (24 layers) trained on FineWeb dataset. Muon concentrates the largest effective dimensionality in middle FFN layers, the layers most critical for generalization.
         </p>
         <div class="content has-text-justified">
           <p>
