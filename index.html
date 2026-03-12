@@ -138,7 +138,7 @@
             We introduce NerVE, a unified eigenspectral framework for understanding how feed-forward networks (FFNs) in large language models (LLMs) organize and regulate information flow in high-dimensional latent space. Despite FFNs dominating the parameter budget, their high-dimensional dynamics remain poorly understood. NerVE addresses this gap through lightweight, memory-efficient tracking of eigenspectrum dynamics via four complementary metrics: Spectral Entropy (dispersion), Participation Ratio (effective dimensionality), Eigenvalue Early Enrichment (top-heaviness), and Jensen-Shannon divergence (distributional shifts). Our <em>key insight</em> is that FFN nonlinearities reinject variance across eigenmodes, fundamentally governing latent dimension utilization, and that optimizer geometry strongly modulates the extent of this variance reinjection.
           </p>
           <p>
-            We validate NerVE across model scales, and diverse architectural and optimizer configurations, each uniquely shaping FFN dynamics: normalization schemes controlling variance flow; FFN weight geometries constraining latent space; positional encoding and activation functions regulating information flow; and optimizer choices redistributing effective capacity across depth. Across these settings, NerVE consistently recovers stable spectral signatures that correlate with model's generalization ability and respond predictably to design choices, generalizing beyond transformer to MLP-Mixer architectures, providing actionable insights for architectural and optimizer choices beyond trial-and-error.
+            We validate NerVE across model scales, and diverse architectural and optimizer configurations, each uniquely shaping FFN dynamics: normalization schemes controlling variance flow; FFN weight geometries constraining latent space; positional encoding and activation functions regulating information flow; and optimizer choices redistributing effective capacity across depth. Across these settings, NerVE consistently recovers stable spectral signatures that correlate with the model's generalization ability and respond predictably to design choices, generalizing beyond transformer to MLP-Mixer architectures, providing actionable insights for architectural and optimizer choices beyond trial-and-error.
           </p>
         </div>
       </div>
@@ -165,13 +165,12 @@
           <strong style="color: #666;">Figure:</strong> Eigen-metrics (SE, PR, EEE, and JS) illustrate how FFN nonlinearities regulate information flow and reshape the eigenspectrum during training for GELU (top) and ReLU (bottom). Pre- and post-activation dynamics are shown for SE, PR, and EEE, highlighting how nonlinearities reinject variance and alter spectral structure. JS heatmaps (rightmost) capture the layer-wise distributional shift induced by the nonlinearity. In-panel titles report Pearson correlations (<em>r</em>) between each metric and evaluation loss, shown as orange curves.
         </p>
 
-        <!-- Content paragraphs — TODO: add your text here -->
         <div class="content has-text-justified">
           <p>
-            <strong>Attention-induced rank collapse.</strong> <a href="https://proceedings.mlr.press/v139/dong21a.html" target="_blank">Dong et al. (ICML 2021)</a> showed that self-attention possesses <em>a strong inductive bias toward token uniformity :</em> a pure self-attention network (when skip connections and FFNs are disabled) lose expressive power doubly exponentially with depth. They observed a <strong>tug-of-war</strong> between self-attention and FFN nonlinearities: attention collapses rank, FFN nonlinearity somehow fights back and keeps transformer networks alive. However, the mechanism of rank inflation through FFN nonlinearity has not been well understood, and their precise role is not quantified. NerVE provides the quantitative answer.
+            <strong>Attention-induced rank collapse.</strong> <a href="https://proceedings.mlr.press/v139/dong21a.html" target="_blank">Dong et al. (ICML 2021)</a> showed that self-attention possesses <em>a strong inductive bias toward token uniformity:</em> a pure self-attention network (when skip connections and FFNs are disabled) loses expressive power doubly exponentially with depth. They observed a <strong>tug-of-war</strong> between self-attention and FFN nonlinearities: attention collapses rank, FFN nonlinearity somehow fights back and keeps transformer networks alive. However, the mechanism of rank inflation through FFN nonlinearity has not been well understood, and their precise role is not quantified. NerVE provides the quantitative answer.
           </p>
           <p>
-            <strong>Nonlinearity-induced rank inflation.</strong> We show that FFN nonlinearities actively <em>reinject variance</em> into under-utilized directions of the latent space, reawakening dimensions that would otherwise remain inactive, a process we term <strong>nonlinearity-induced rank inflation</strong>. This is not a passive rescaling, nonlinearity fundamentally reorganizes the eigenspectrum, flattening its top-heavy structure by spreading variance across a broader set of directions.
+            <strong>Nonlinearity-induced rank inflation.</strong> We show that FFN nonlinearities actively <em>reinject variance</em> into under-utilized directions of the latent space, reawakening dimensions that would otherwise remain inactive, a process we term <strong>nonlinearity-induced rank inflation</strong>. This is not a passive rescaling; the nonlinearity fundamentally reorganizes the eigenspectrum, flattening its top-heavy structure by spreading variance across a broader set of directions.
           </p>
 
           <p>
@@ -208,7 +207,7 @@
           <img src="./static/images/normfree_eigenmetrics_plots.png" alt="Normalization-free eigenmetrics plots" style="width: 100%;">
         </div>
 
-        <!-- Figure Caption — TODO: will be provided -->
+        <!-- Figure Caption -->
         <p class="has-text-justified" style="color: #888; font-size: 0.95rem; margin-top: 1rem; margin-bottom: 1.5rem; line-height: 1.6;">
           <strong style="color: #666;">Figure:</strong> Eigenspectrum dynamics for norm-free GPT-2 (125M) models with GELU (top), ReLU (middle), and learnable-slope Leaky ReLU (bottom). Each row shows layer-averaged SE (pre vs. post), PR gain (post-to-pre ratio), post-activation EEE, and JS divergence across layers and training steps. Norm-free GELU exhibits spectral inertia in layers 0 to 5 (EEE &rarr; 1, JS &rarr; 0), while <em>ReLU and Leaky ReLU aggressively reinject variance</em> (PR gain &gt; <strong>200x</strong>), flattening the spectrum (EEE &lt; 0.3).
         </p>
@@ -255,7 +254,7 @@
             </tbody>
           </table>
           <p class="has-text-justified" style="color: #888; font-size: 0.95rem; margin-top: 0.75rem; line-height: 1.6;">
-            <strong style="color: #666;">Table:</strong> Evaluation perplexity (PPL) comparison across GPT-2 baseline models (GELU and ReLU), and the norm-free variants (GELU, ReLU, learnable-slope Leaky ReLU). All models trained from scratch on 2.1B tokens from CodeParrot dataset.
+            <strong style="color: #666;">Table:</strong> Evaluation perplexity (PPL) comparison across GPT-2 baseline models (GELU and ReLU), and the norm-free variants (GELU, ReLU, learnable-slope Leaky ReLU). All models trained from scratch on 2.1B tokens from the CodeParrot dataset.
           </p>
         </div>
 
@@ -289,7 +288,7 @@
           <img src="./static/images/pr_pre_line_plots_350m.png" alt="Layer-wise pre-activation PR over training" style="width: 100%;">
         </div>
         <p class="has-text-justified" style="color: #888; font-size: 0.95rem; margin-top: 1rem; margin-bottom: 1.5rem; line-height: 1.6;">
-          <strong style="color: #666;">Figure:</strong> Layer-wise pre-activation PR over training for AdamW, Muon, and Dion. Muon maintains the highest PR_pre across almost all layers throughout training, Dion is intermediate, and AdamW shows early-layer collapse.
+          <strong style="color: #666;">Figure:</strong> Layer-wise pre-activation PR over training for AdamW, Muon, and Dion. Muon maintains the highest PR<sub>pre</sub> across almost all layers throughout training, Dion is intermediate, and AdamW shows early-layer collapse.
         </p>
         <div class="content has-text-justified">
           <p>
@@ -306,7 +305,7 @@
         </p>
         <div class="content has-text-justified">
           <p>
-            <strong>Where capacity accumulates matters more than how much is injected.</strong> Muon concentrates the highest post-activation effective dimensionality in middle FFN layers, the layers recent evidence identifies as disproportionately important for generalization (<a href="https://openreview.net/forum?id=c5TFhCJ6fs" target="_blank">Queipo-de-Llano et al., ICLR 2026</a>; <a href="https://openreview.net/forum?id=Wxh5Xz7NpJ" target="_blank">Lad et al., NeurIPS 2025</a>; <a href="https://openreview.net/forum?id=oP3b5YBFoP" target="_blank">Ikeda et al., COLM 2025</a>; <a href="https://openreview.net/forum?id=WGXb7UdvTX" target="_blank">Skean et al., ICML 2025</a>). AdamW inflates PR_post in early layers through aggressive repair but leaves middle layers underserved. Dion pushes capacity into early FFNs without yielding the best perplexity. The decisive pattern: perplexity tracks mid-layer spectral capacity, not early-layer effort. This suggests that optimizer selection should be evaluated not by aggregate training metrics but by where across depth the optimizer allocates effective representational capacity. These findings provide empirical evidence that optimizer geometry introduces qualitatively distinct representational biases, not merely different convergence rates, aligning with the recent position that optimizers should be leveraged as explicit sources of inductive biases (<a href="https://arxiv.org/abs/2507.12224" target="_blank">Pascanu et al., 2025</a>).
+            <strong>Where capacity accumulates matters more than how much is injected.</strong> Muon concentrates the highest post-activation effective dimensionality in middle FFN layers, the layers recent evidence identifies as disproportionately important for generalization (<a href="https://openreview.net/forum?id=c5TFhCJ6fs" target="_blank">Queipo-de-Llano et al., ICLR 2026</a>; <a href="https://openreview.net/forum?id=Wxh5Xz7NpJ" target="_blank">Lad et al., NeurIPS 2025</a>; <a href="https://openreview.net/forum?id=oP3b5YBFoP" target="_blank">Ikeda et al., COLM 2025</a>; <a href="https://openreview.net/forum?id=WGXb7UdvTX" target="_blank">Skean et al., ICML 2025</a>). AdamW inflates PR<sub>post</sub> in early layers through aggressive repair but leaves middle layers underserved. Dion pushes capacity into early FFNs without yielding the best perplexity. The decisive pattern: perplexity tracks mid-layer spectral capacity, not early-layer effort. This suggests that optimizer selection should be evaluated not by aggregate training metrics but by where across depth the optimizer allocates effective representational capacity. These findings provide empirical evidence that optimizer geometry introduces qualitatively distinct representational biases, not merely different convergence rates, aligning with the recent position that optimizers should be leveraged as explicit sources of inductive biases (<a href="https://arxiv.org/abs/2507.12224" target="_blank">Pascanu et al., 2025</a>).
           </p>
         </div>
 
